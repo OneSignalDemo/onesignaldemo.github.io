@@ -29,12 +29,15 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- navbar -->
-    <nav class="navbar">
-      <div class="navbar-center">
-        <span class="nav-icon">
-          <i class="fas fa-bars"></i>
-        </span>
+    <div class="grid-container">
+      <header class="header">
+        <div class="left-menu">
+          <button onclick="openLeftMenu()">
+            <span class="nav-icon">
+              <i class="fas fa-bars"></i>
+            </span>
+          </button>
+        </div>
         <div class="brand">
           <a href="index.html">OneSignal Store Demo</a>
         </div>
@@ -44,42 +47,69 @@
           </span>
           <div class="cart-items">0</div>
         </div>
-      </div>
-    </nav>
-    <!-- end navbar -->
-    <!-- hero -->
-    <header class="hero">
-      <div class="banner">
-        <h1 class="banner-title">Sunglasses Collection</h1>
-        <button class="banner-btn">Shop Now</button>
-      </div>
-    </header>
-    <!-- end hero -->
-    <!-- products -->
-    <section class="products">
-      <div class="section-title">
-        <h2>our products</h2>
-      </div>
-      <div class="products-center"></div>
-    </section>
-    <!-- end products -->
-    <!-- cart -->
-    <div class="cart-overlay">
-      <div class="cart">
-        <span class="close-cart">
+      </header>
+      <!--left overlay -->
+      <aside class="left-overlay">
+        <h3>Categories</h3>
+        <button class="left-overlay-close-button" onclick="closeLeftMenu()">
           <i class="fas fa-window-close"></i>
-        </span>
-        <h2>your cart</h2>
-        <div class="cart-content">
-          <!-- cart item added dynamically in app.js-->
+        </button>
+        <ul>
+          <li><a href="index.html">Hats</a></li>
+
+          <li><a href="index.html">Sunglasses</a></li>
+        </ul>
+      </aside>
+      <!-- end left overlay -->
+      <!-- hero -->
+      <main class="hero">
+        <div class="banner">
+          <h1 class="banner-title">Sunglasses Collection</h1>
+          <button class="banner-btn">Shop Now</button>
         </div>
-        <div class="cart-footer">
-          <h3>yourtotal : $ <span class="cart-total">0</span></h3>
-          <button class="clear-cart banner-btn">clear cart</button>
+      </main>
+      <!-- end hero -->
+      <!-- products -->
+      <section class="products">
+        <div class="section-title">
+          <h2>our products</h2>
+        </div>
+        <div class="products-center"></div>
+      </section>
+      <!-- end products -->
+      <!-- cart -->
+      <div class="cart-overlay">
+        <div class="cart">
+          <span class="close-cart">
+            <i class="fas fa-window-close"></i>
+          </span>
+          <h2>your cart</h2>
+          <div class="cart-content">
+            <!-- cart item added dynamically in app.js-->
+          </div>
+          <div class="cart-footer">
+            <h3>yourtotal : $ <span class="cart-total">0</span></h3>
+            <button class="clear-cart banner-btn">clear cart</button>
+            <a href="checkout.html" class="checkout-btn">Checkout</a>
+          </div>
         </div>
       </div>
+      <!-- end cart -->
+      <footer class="footer">
+        <div class="footer-links">
+          <a href="https://onesignal.com">Get started at OneSignal.com</a>
+        </div>
+      </footer>
     </div>
-    <!-- end cart -->
+    <script>
+      function openLeftMenu() {
+        console.log("openLeftMenu");
+        document.querySelector(".left-overlay").classList.add("open");
+      }
+      function closeLeftMenu() {
+        document.querySelector(".left-overlay").classList.remove("open");
+      }
+    </script>
     <script src="app.js"></script>
   </body>
 </html>

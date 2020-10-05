@@ -1,13 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
 :root {
-  --primaryColor: #f09d51;
+  --mainOrange: #ff8000;
+  --mainGreen: #00deae;
   --mainWhite: #fff;
   --mainBlack: #222;
   --mainGrey: #ececec;
   --mainSpacing: 0.1rem;
   --mainTransition: all 0.3s linear;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -18,26 +20,27 @@ body {
   background: var(--mainWhite);
   font-family: "Lato", sans-serif;
 }
-/* --------------- Navbar ---------------- */
-.navbar {
-  position: sticky;
-  top: 0;
-  height: 60px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  background: rgb(231, 226, 221);
-  z-index: 1;
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "products"
+    "footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem 0.2fr 1fr 5rem;
+  height: 100%;
 }
-.navbar-center {
-  width: 100%;
-  max-width: 1170px;
-  margin: 0 auto;
+.header {
+  grid-area: header;
+  background-color: var(--mainGreen);
+  color: var(--mainWhite);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
+  align-items: center;
+  padding: 1rem;
 }
+
 .nav-icon {
   font-size: 1.5rem;
 }
@@ -49,19 +52,55 @@ body {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: var(--primaryColor);
+  background: var(--mainOrange);
   padding: 0 5px;
   border-radius: 30%;
   color: var(--mainWhite);
 }
 .brand a {
-  color: var(--primaryColor);
+  color: var(--mainWhite);
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
 }
-/* --------------- End of Navbar ---------------- */
-/* --------------- Hero ---------------- */
+.left-menu button {
+  font-size: 1.5rem;
+  padding: 1rem;
+  background: none;
+  border: none;
+  color: var(--mainWhite);
+  outline: none;
+  cursor: pointer;
+}
+/* --------------- Left Side Bar --------------- */
+.left-overlay {
+  position: fixed;
+  transition: all 0.5s;
+  transform: translateX(-30rem);
+  width: 30rem;
+  background-color: var(--mainGrey);
+  height: 100%;
+  z-index: 2;
+}
+
+.left-overlay.open {
+  transform: translateX(0);
+}
+.left-overlay-close-button {
+  border: none;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+  padding-top: 0.2rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  position: absolute;
+  right: 0.5rem;
+  top: 1.5rem;
+  outline: none;
+}
+/* --------------- End Left Side Bar --------------- */
+/* --------------- Hero --------------- */
 .hero {
   min-height: calc(70vh - 60px);
   background: url("./images/hero-bcg.jpg") center/cover no-repeat;
@@ -86,15 +125,15 @@ body {
   text-transform: uppercase;
   letter-spacing: var(--mainSpacing);
   font-size: 1rem;
-  background: var(--primaryColor);
+  background: var(--mainOrange);
   color: var(--mainBlack);
-  border: 1px solid var(--primaryColor);
+  border: 1px solid var(--mainOrange);
   transition: var(--mainTransition);
   cursor: pointer;
 }
 .banner-btn:hover {
   background: transparent;
-  color: var(--primaryColor);
+  color: var(--mainOrange);
 }
 /* --------------- End of Hero ---------------- */
 /* --------------- Products ---------------- */
@@ -128,7 +167,7 @@ body {
   position: absolute;
   top: 70%;
   right: 0;
-  background: var(--primaryColor);
+  background: var(--mainOrange);
   border: none;
   text-transform: uppercase;
   padding: 0.5rem 0.75rem;
@@ -168,7 +207,7 @@ body {
 .product h4 {
   margin-top: 0.7rem;
   letter-spacing: var(--mainSpacing);
-  color: var(--primaryColor);
+  color: var(--mainOrange);
   text-align: center;
 }
 
@@ -251,19 +290,76 @@ body {
 }
 .fa-chevron-up,
 .fa-chevron-down {
-  color: var(--primaryColor);
+  color: var(--mainOrange);
   cursor: pointer;
 }
 /*---------- End of Cart Item -------------------- */
 
 .cart-footer {
-  margin-top: 2rem;
+  margin: 2rem;
   letter-spacing: var(--mainSpacing);
   text-align: center;
 }
 .cart-footer h3 {
   text-transform: capitalize;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 
+.clear-cart.banner-btn {
+  padding: 1rem 3rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: var(--mainSpacing);
+  font-size: 1rem;
+  background: var(--mainWhite);
+  color: var(--mainBlack);
+  border: 1px solid var(--mainOrange);
+  transition: var(--mainTransition);
+  cursor: pointer;
+}
+.clear-cart.banner-btn:hover {
+  background: transparent;
+  color: var(--mainWhite);
+}
+
+.checkout-btn {
+  padding: 1rem 3rem;
+  margin-top: 10rem;
+  text-transform: uppercase;
+  letter-spacing: var(--mainSpacing);
+  font-size: 1rem;
+  background: var(--mainOrange);
+  color: var(--mainWhite);
+  border: 1px solid var(--mainWhite);
+  transition: var(--mainTransition);
+  cursor: pointer;
+}
+.checkout-btn:hover {
+  background: var(--mainGreen);
+  color: var(--mainWhite);
+  border: 1px solid var(--mainGreen);
+}
 /* --------------- End of Cart ---------------- */
+/* --------------- Footer ---------------- */
+.footer {
+  grid-area: footer;
+  background-color: var(--mainGreen);
+  color: var(--mainWhite);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer-links a {
+  color: var(--mainWhite);
+  text-decoration: none;
+}
+.footer-links a:hover {
+  color: var(--mainOrange);
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  color: var(--mainOrange);
+}
+/* --------------- End of Footer ---------------- */
