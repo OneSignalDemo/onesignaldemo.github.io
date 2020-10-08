@@ -6,48 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>OneSignal Store Demo</title>
     <!-- OneSignal Init-->
-    <script
-      src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
-      async=""
-    ></script>
-    <script>
-      window.OneSignal = window.OneSignal || [];
-      OneSignal.push(function () {
-        OneSignal.init({
-          appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3",
-        });
-      });
-    </script>
-    <!--End OneSignal Init-->
-    <!-- font awesome-->
-    <script
-      src="https://kit.fontawesome.com/b198ccf02e.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="OneSignalMethods.js"></script>
 
     <!-- custom css -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <form action="" method="POST" id="checkout-form">
+    <div style="padding: 10px">
+      <a href="index.html">< Back to OneSignal Store Demo</a>
+    </div>
+    <div class="checkout-form" id="checkout-form">
       <div>
         <label for="creditCard">Card Number</label>
-        <input type="text" name="creditCard" id="creditCard" />
+        <input
+          type="text"
+          name="creditCard"
+          id="creditCard"
+          value="************4722"
+        />
       </div>
 
       <div>
         <label for="cvv">Security Code</label>
-        <input type="text" name="cvv" id="cvv" />
+        <input type="text" name="cvv" id="cvv" value="***" />
       </div>
 
       <div>
         <label for="Expiration">Exp. (MM/YYYY)</label>
-        <input type="text" name="exp-month" id="exp-month" size="2" />
+        <input
+          type="text"
+          name="exp-month"
+          id="exp-month"
+          size="2"
+          value="02"
+        />
         <span> / </span>
-        <input type="text" name="exp-year" id="exp-year" size="4" />
+        <input
+          type="text"
+          name="exp-year"
+          id="exp-year"
+          size="4"
+          value="3000"
+        />
       </div>
 
-      <button type="submit" id="submit-button">Buy Now</button>
-    </form>
+      <button class="submit-payment">Submit Payment</button>
+    </div>
   </body>
 </html>

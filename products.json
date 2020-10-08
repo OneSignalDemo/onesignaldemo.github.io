@@ -19,7 +19,7 @@
     {
       "sys": { "id": "3" },
       "fields": {
-        "title": "Sporty Frames (sand included)",
+        "title": "Blue Sporty Frames",
         "price": 100.99,
         "image": { "fields": { "file": { "url": "./images/s3.jpg" } } }
       }
@@ -51,7 +51,7 @@
     {
       "sys": { "id": "7" },
       "fields": {
-        "title": "Sporty Frames 2 (no sand)",
+        "title": "Black Sporty Frames",
         "price": 145.99,
         "image": { "fields": { "file": { "url": "./images/s7.jpg" } } }
       }

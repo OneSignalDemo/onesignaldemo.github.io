@@ -130,8 +130,33 @@ body {
   border: 1px solid var(--mainOrange);
   transition: var(--mainTransition);
   cursor: pointer;
+  text-decoration: none;
+}
+.banner-btn-green {
+  padding: 1rem 3rem;
+  text-transform: uppercase;
+  letter-spacing: var(--mainSpacing);
+  font-size: 1rem;
+  background: var(--mainGreen);
+  color: var(--mainBlack);
+  border: 1px solid var(--mainGreen);
+  transition: var(--mainTransition);
+  cursor: pointer;
+  text-decoration: none;
+}
+.banner-btn a {
+  color: var(--mainBlack);
+  text-decoration: none;
+}
+.banner-btn-green a {
+  color: var(--mainBlack);
+  text-decoration: none;
 }
 .banner-btn:hover {
+  background: transparent;
+  color: var(--mainOrange);
+}
+.banner-btn-green:hover {
   background: transparent;
   color: var(--mainOrange);
 }
@@ -163,7 +188,7 @@ body {
   position: relative;
   overflow: hidden;
 }
-.bag-btn {
+.add-to-cart-btn {
   position: absolute;
   top: 70%;
   right: 0;
@@ -177,26 +202,27 @@ body {
   transform: translateX(101%);
   cursor: pointer;
 }
-.bag-btn:hover {
+.add-to-cart-btn:hover {
   color: var(--mainWhite);
 }
 .fa-shopping-cart {
   margin-right: 0.5rem;
 }
-.img-container:hover .bag-btn {
+.img-container:hover .add-to-cart-btn {
   transform: translateX(0);
 }
 .product-img {
   display: block;
   width: 100%;
-  min-height: 12rem;
+  max-height: 12rem;
   transition: var(--mainTransition);
+  object-fit: fill;
 }
 .img-container:hover .product-img {
   opacity: 0.5;
 }
 
-.product h3 {
+.product-title {
   text-transform: capitalize;
   font-size: 1.1rem;
   margin-top: 1rem;
@@ -363,3 +389,13 @@ a:hover {
   color: var(--mainOrange);
 }
 /* --------------- End of Footer ---------------- */
+/* --------------- Checkout Form ---------------- */
+.checkout-form {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  background: var(--mainOrange);
+  padding: 20px;
+  color: var(--mainWhite);
+}
+/* --------------- End of Checkout Form ---------------- */

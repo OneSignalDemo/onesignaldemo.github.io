@@ -45,14 +45,15 @@ class UI {
             <img
             src=${product.image} 
             alt="product" 
-            class="product-img" 
+            class="product-img"
+            id="product-img-id-${product.id}"
             />
-            <button class="bag-btn" data-id=${product.id}>
+            <button class="add-to-cart-btn" data-id=${product.id} id="add-to-cart-btn-id-${product.id}">
             <i class="fas fa-shopping-cart"></i>
             add to cart
             </button>
           </div>
-          <h3>${product.title}</h3>
+          <h3 class="product-title" id="product-title-id-${product.id}">${product.title}</h3>
           <h4>$${product.price}</h4>
         </article>
         `;
@@ -61,7 +62,7 @@ class UI {
   }
 
   getBagButtons() {
-    const buttons = [...document.querySelectorAll(".bag-btn")];
+    const buttons = [...document.querySelectorAll(".add-to-cart-btn")];
     buttonsDOM = buttons;
     buttons.forEach((button) => {
       let id = button.dataset.id;
@@ -102,9 +103,9 @@ class UI {
     const div = document.createElement("div");
     div.classList.add("cart-item");
     div.innerHTML = `
-      <img src=${item.image} alt="product" />
+      <img src=${item.image} class="cart-product-img" alt="product" />
             <div>
-              <h4>${item.title}</h4>
+              <h4 class="cart-product-title">${item.title}</h4>
               <h5>$${item.price}</h5>
               <span class="remove-item" data-id=${item.id}>remove</span>
             </div>
