@@ -96,7 +96,7 @@ class UI {
       tempTotal += item.price * item.amount;
       itemsTotal += item.amount;
     });
-    cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
+    cartTotal.innerHTML = parseFloat(tempTotal.toFixed(2));
     cartItems.innerText = itemsTotal;
   }
   addCartItem(item) {
@@ -214,18 +214,41 @@ class Storage {
 document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   const products = new Products();
-  // setup app
-  ui.setupAPP();
-  //get all products
-  products
-    .getProducts()
-    .then((products) => {
-      ui.displayProducts(products);
-      //save products to localstorage
-      Storage.saveProducts(products);
-    })
-    .then(() => {
-      ui.getBagButtons();
-      ui.cartLogic();
+  const productsSection = document.querySelector(".products-section");
+  if (typeof productsSection != "undefined" && productsSection != null) {
+    // setup app
+    ui.setupAPP();
+    //get all products
+    products
+      .getProducts()
+      .then((products) => {
+        ui.displayProducts(products);
+        //save products to localstorage
+        Storage.saveProducts(products);
+      })
+      .then(() => {
+        ui.getBagButtons();
+        ui.cartLogic();
+      });
+  }
+  const checkoutForm = document.querySelector(".checkout-form");
+  const checkoutPriceTotal = document.querySelector(".checkout-price-total");
+  const checkoutItemsTotal = document.querySelector(".checkout-items-total");
+  if (typeof checkoutForm != "undefined" && checkoutForm != null) {
+    products.getProducts();
+    cart = Storage.getCart();
+    let tempTotal = 0;
+    let itemsTotal = 0;
+    cart.map((item) => {
+      tempTotal += item.price * item.amount;
+      itemsTotal += item.amount;
     });
+    if (
+      typeof checkoutPriceTotal != "undefined" &&
+      checkoutPriceTotal != null
+    ) {
+      checkoutPriceTotal.innerHTML = parseFloat(tempTotal.toFixed(2));
+      checkoutItemsTotal.innerHTML = itemsTotal;
+    }
+  }
 });

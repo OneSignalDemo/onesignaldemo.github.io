@@ -139,18 +139,35 @@ window.addEventListener("load", () => {
     });
   }
 
-  const submitPaymentBtn = document.querySelector(".submit-payment");
-  if (typeof submitPaymentBtn != "undefined" && submitPaymentBtn != null) {
-    submitPaymentBtn.addEventListener("click", () => {
-      console.log("submit payment");
-      OneSignal.sendTags({
-        cart_update: "",
-        product_name: "",
-        product_image: "",
-      }).then(function (tagsSent) {
-        // Callback called when tags have finished sending
-        console.log(tagsSent);
-      });
+  const submitPurchaseButton = document.querySelector(".submit-payment");
+  const checkoutPriceTotal = document.querySelector(".checkout-price-total")
+    .innerText;
+  const checkoutItemsTotal = document.querySelector(".checkout-items-total")
+    .innerText;
+  if (
+    typeof submitPurchaseButton != "undefined" &&
+    submitPurchaseButton != null
+  ) {
+    submitPurchaseButton.addEventListener("click", () => {
+      updateOSOnCartPurchase(checkoutPriceTotal, checkoutItemsTotal);
     });
   }
 });
+
+function updateOSOnCartPurchase(checkoutPriceTotal, checkoutItemsTotal) {
+  let purchasePriceTotal = parseFloat(checkoutPriceTotal);
+  let purchasedItemCount = parseInt(checkoutItemsTotal);
+  OneSignal.push(function () {
+    OneSignal.sendTags({
+      cart_update: "",
+      product_name: "",
+      product_image: "",
+    }).then(function (tagsSent) {
+      // Callback called when tags have finished sending
+      console.log(tagsSent);
+    });
+    OneSignal.sendOutcome("Purchase", purchasePriceTotal);
+    OneSignal.sendOutcome("Purchased Item Count", purchasedItemCount);
+    OneSignal.sendUniqueOutcome("Unique Purchase Count");
+  });
+}
