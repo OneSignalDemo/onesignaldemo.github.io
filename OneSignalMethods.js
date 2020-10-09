@@ -7,8 +7,8 @@
     window.OneSignal = window.OneSignal || [];
     OneSignal.push(function () {
       OneSignal.init({
-        //appId: "380dc082-5231-4cc2-ab51-a03da5a0e4c2", // testing
-        appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3", //main
+        appId: "380dc082-5231-4cc2-ab51-a03da5a0e4c2", // testing
+        //appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3", //main
       });
     });
   };
@@ -23,9 +23,6 @@ window.addEventListener("load", () => {
       console.log("The user's subscription state is now:", isSubscribed);
       OneSignal.getUserId(function (userId) {
         console.log("OneSignal User ID:", userId);
-      });
-      OneSignal.getTags(function (tags) {
-        console.log("Current OneSignal Tags:", tags);
       });
       //Get User ID from your server
       let myCustomUniqueUserId = Math.floor(Math.random() * 1000000000); //set to random number for now
@@ -185,6 +182,8 @@ function updateOSOnCartPurchase(checkoutPriceTotal, checkoutItemsTotal) {
     });
     OneSignal.sendOutcome("Purchase", purchasePriceTotal);
     OneSignal.sendOutcome("Purchased Item Count", purchasedItemCount);
-    OneSignal.sendUniqueOutcome("Unique Purchase Count");
+    console.log("Purchase made! Outcomes sent:");
+    console.log("Purchase ", purchasePriceTotal);
+    console.log("Purchased Item Count ", purchasedItemCount);
   });
 }
