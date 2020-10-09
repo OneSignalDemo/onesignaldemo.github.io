@@ -38,7 +38,7 @@ window.addEventListener("load", () => {
             product_image: productImageURL,
           }).then(function (tagsSent) {
             // Callback called when tags have finished sending
-            //console.log(tagsSent);
+            console.log(tagsSent);
           });
         });
       });
@@ -73,7 +73,7 @@ window.addEventListener("load", () => {
               product_image: productImageURL,
             }).then(function (tagsSent) {
               // Callback called when tags have finished sending
-              //console.log(tagsSent);
+              console.log(tagsSent);
             });
           });
         });
@@ -139,11 +139,11 @@ window.addEventListener("load", () => {
     });
   }
 
+  const submitPurchaseButton = document.querySelector(".submit-payment");
   if (
     typeof submitPurchaseButton != "undefined" &&
     submitPurchaseButton != null
   ) {
-    const submitPurchaseButton = document.querySelector(".submit-payment");
     const checkoutPriceTotal = document.querySelector(".checkout-price-total")
       .innerText;
     const checkoutItemsTotal = document.querySelector(".checkout-items-total")
