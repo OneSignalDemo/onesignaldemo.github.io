@@ -17,6 +17,23 @@
 })(document);
 
 window.addEventListener("load", () => {
+  //Subscription methods
+  OneSignal.push(function () {
+    OneSignal.on("subscriptionChange", function (isSubscribed) {
+      console.log("The user's subscription state is now:", isSubscribed);
+      OneSignal.getUserId(function (userId) {
+        console.log("OneSignal User ID:", userId);
+      });
+      OneSignal.getTags(function (tags) {
+        console.log("Current OneSignal Tags:", tags);
+      });
+      //Get User ID from your server
+      let myCustomUniqueUserId = Math.floor(Math.random() * 1000000000); //set to random number for now
+      OneSignal.setExternalUserId(myCustomUniqueUserId);
+      console.log("External User ID: ", myCustomUniqueUserId);
+    });
+  });
+
   //Abandoned Cart Example
   class OSCart {
     //Example if page has a single "Add to cart" button
