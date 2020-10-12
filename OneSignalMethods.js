@@ -17,8 +17,34 @@
 })(document);
 
 window.addEventListener("load", () => {
+  
+  // -------------------------------- Quick Examples -------------------------------- //
+  const pushSupported = document.querySelector(".push-supported");
+  const pushEnabled = document.querySelector(".push-enabled");
+  const playerIdElement = document.querySelector(".player-id");
+  const externalUserIdElement = document.querySelector(".external-user-id");
   //Subscription methods
   OneSignal.push(function () {
+    var isPushSupported = OneSignal.isPushNotificationsSupported();
+    pushSupported.innerHTML = isPushSupported;
+    OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+      pushEnabled.innerHTML = isEnabled;
+      if (isEnabled) {
+        console.log("Push notifications are enabled!");
+        OneSignal.getUserId(function (userId) {
+          console.log("OneSignal User ID:", userId);
+          playerIdElement.innerHTML = userId;
+        });
+        async function getExternalUserId() {
+          var externalUserId = await OneSignal.getExternalUserId();
+          console.log("OneSignal External User ID:", externalUserId );
+          externalUserIdElement.innerText = externalUserId
+        }
+        getExternalUserId();
+      }
+      else
+        console.log("Push notifications are not enabled yet.");    
+    });
     OneSignal.on("subscriptionChange", function (isSubscribed) {
       console.log("The user's subscription state is now:", isSubscribed);
       OneSignal.getUserId(function (userId) {
@@ -31,7 +57,27 @@ window.addEventListener("load", () => {
     });
   });
 
-  //Abandoned Cart Example
+  const tagUserWithFieldsButton = document.getElementById("tagUserWithFieldsButton");
+  tagUserWithFieldsButton.addEventListener("click", () => {
+    OneSignal.push(function() {            
+      OneSignal.sendTag(document.getElementById("tagKey").value, document.getElementById("tagValue").value)
+        .then(function(tagsSent) {
+          // Callback called when tags have finished sending
+          console.log("tagsSent: ", tagsSent);  
+        }); 
+    });
+  })
+
+  const showCategorySlidePrompt = document.getElementById("showCategorySlidePrompt");
+  showCategorySlidePrompt.addEventListener("click", () => {
+    OneSignal.push(function() {            
+      OneSignal.showCategorySlidedown();
+    });
+  })
+  
+
+
+  // -------------------------------- Abandoned Cart Example -------------------------------- //
   class OSCart {
     //Example if page has a single "Add to cart" button
     setupSingleOSAddToCartButtonOptions() {

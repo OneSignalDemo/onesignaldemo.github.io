@@ -40,15 +40,42 @@
       </header>
       <!--left overlay -->
       <aside class="left-overlay">
-        <h3>Categories</h3>
+        
         <button class="left-overlay-close-button" onclick="closeLeftMenu()">
           <i class="fas fa-window-close"></i>
         </button>
-        <ul>
-          <li><a href="index.html">Hats</a></li>
-
-          <li><a href="index.html">Sunglasses</a></li>
-        </ul>
+        <h3 style="margin-top: 30px; padding-left: 100px; padding-top: 30px; padding-bottom: 10px;">Quick Examples</h3>
+        <hr>
+        <div class="left-overlay-content">
+          <h4>Push Data</h4>
+          <dl>
+            <dt>Is Push Supported on Browser:</dt>
+            <dd class="push-supported">?</dd>
+            <dt>Browser Push Enabled:</dt> 
+            <dd class="push-enabled">?</dd>
+            <dt>OneSignal Player ID:</dt> 
+            <dd class="player-id">?</dd>
+            <dt>External User Id:</dt> 
+            <dd class="external-user-id">?</dd>
+          </ul>
+          
+          <h4>Tag & External User Id Example</h4>
+          <form style="padding: 10px;">
+            <label>Tag key:</label>
+            <input type = "text"
+            id = "tagKey"
+            value = "tag_key_here" />
+            <br>
+            <label>Tag value:</label>
+            <input type = "text"
+            id = "tagValue"
+            value = "tag_value_here" />
+          </form>
+          <button id="tagUserWithFieldsButton">Tag User With Field Values</button>
+          <h4>Show Category Slidedown Prompt</h4>
+          <button id="showCategorySlidePrompt">Show Category Slidedown Prompt</button>
+          
+        </div>
       </aside>
       <!-- end left overlay -->
       <!-- hero -->

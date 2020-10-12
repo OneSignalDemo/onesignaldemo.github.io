@@ -99,6 +99,17 @@ body {
   top: 1.5rem;
   outline: none;
 }
+.left-overlay-content {
+  padding-left: 30px;
+}
+.left-overlay-content h4 {
+  padding-top: 50px;
+  padding-bottom: 10px;
+}
+.left-overlay-content dt {
+  font-weight: bold;
+}
+
 /* --------------- End Left Side Bar --------------- */
 /* --------------- Hero --------------- */
 .hero {
