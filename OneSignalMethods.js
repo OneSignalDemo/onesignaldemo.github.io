@@ -7,8 +7,8 @@
     window.OneSignal = window.OneSignal || [];
     OneSignal.push(function () {
       OneSignal.init({
-        //appId: "380dc082-5231-4cc2-ab51-a03da5a0e4c2", // testing
-        appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3", //main
+        appId: "380dc082-5231-4cc2-ab51-a03da5a0e4c2", // testing
+        //appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3", //main
       });
     });
   };
@@ -55,6 +55,10 @@ window.addEventListener("load", () => {
       OneSignal.setExternalUserId(myCustomUniqueUserId);
       console.log("External User ID: ", myCustomUniqueUserId);
     });
+      OneSignal.on('notificationPermissionChange', function(permissionChange) {
+        var currentPermission = permissionChange.to;
+        console.log('New permission state:', currentPermission);
+      });
   });
 
   const tagUserWithFieldsButton = document.getElementById("tagUserWithFieldsButton");

@@ -1,0 +1,15 @@
+{
+  "applinks": {
+      "details": [
+           {
+             "appIDs": [ "99SW8E36CT.com.onesignal.momenta" ]
+           }
+       ]
+   },
+   "webcredentials": {
+      "apps": [ "99SW8E36CT.com.onesignal.momenta" ]
+   },
+    "appclips": {
+        "apps": ["ABCED12345.com.example.MyApp.Clip"]
+    }
+}
