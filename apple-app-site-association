@@ -7,7 +7,7 @@
                  "*",
                  "/",
                  "/posts/*",
-                 "/checkout/"
+                 "/checkout"
                  ]
            }
        ]
