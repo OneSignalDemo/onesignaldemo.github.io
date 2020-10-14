@@ -2,14 +2,9 @@
   "applinks": {
       "details": [
            {
-             "appIDs": [ "99SW8E36CT.com.onesignal.momenta" ]
+             "appIDs": [ "99SW8E36CT.com.onesignal.momenta" ],
+             "paths": ["/posts/*"]
            }
        ]
-   },
-   "webcredentials": {
-      "apps": [ "99SW8E36CT.com.onesignal.momenta" ]
-   },
-    "appclips": {
-        "apps": ["ABCED12345.com.example.MyApp.Clip"]
-    }
+   }
 }
