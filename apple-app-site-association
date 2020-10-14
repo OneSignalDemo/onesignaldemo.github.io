@@ -3,7 +3,12 @@
       "details": [
            {
              "appIDs": [ "99SW8E36CT.com.onesignal.momenta" ],
-             "paths": ["*","/posts/*", "/checkout/"]
+             "paths": [
+                 "*",
+                 "/",
+                 "/posts/*",
+                 "/checkout/"
+                 ]
            }
        ]
    }
