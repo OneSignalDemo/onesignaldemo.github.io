@@ -19,26 +19,19 @@
 window.addEventListener("load", () => {
   
   // -------------------------------- Quick Examples -------------------------------- //
-  const pushSupported = document.querySelector(".push-supported");
-  const pushEnabled = document.querySelector(".push-enabled");
-  const playerIdElement = document.querySelector(".player-id");
-  const externalUserIdElement = document.querySelector(".external-user-id");
   //Subscription methods
   OneSignal.push(function () {
     var isPushSupported = OneSignal.isPushNotificationsSupported();
-    pushSupported.innerHTML = isPushSupported;
+    console.log("Push Supported on Browser: ", isPushSupported);
     OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-      pushEnabled.innerHTML = isEnabled;
       if (isEnabled) {
         console.log("Push notifications are enabled!");
         OneSignal.getUserId(function (userId) {
           console.log("OneSignal User ID:", userId);
-          playerIdElement.innerHTML = userId;
         });
         async function getExternalUserId() {
           var externalUserId = await OneSignal.getExternalUserId();
           console.log("OneSignal External User ID:", externalUserId );
-          externalUserIdElement.innerText = externalUserId
         }
         getExternalUserId();
       }
@@ -62,22 +55,32 @@ window.addEventListener("load", () => {
   });
 
   const tagUserWithFieldsButton = document.getElementById("tagUserWithFieldsButton");
-  tagUserWithFieldsButton.addEventListener("click", () => {
-    OneSignal.push(function() {            
-      OneSignal.sendTag(document.getElementById("tagKey").value, document.getElementById("tagValue").value)
-        .then(function(tagsSent) {
-          // Callback called when tags have finished sending
-          console.log("tagsSent: ", tagsSent);  
-        }); 
-    });
-  })
+  if (
+    typeof tagUserWithFieldsButton != "undefined" &&
+    tagUserWithFieldsButton != null
+  ) {
+    tagUserWithFieldsButton.addEventListener("click", () => {
+      OneSignal.push(function() {            
+        OneSignal.sendTag(document.getElementById("tagKey").value, document.getElementById("tagValue").value)
+          .then(function(tagsSent) {
+            // Callback called when tags have finished sending
+            console.log("tagsSent: ", tagsSent);  
+          }); 
+      });
+    })
+  }
 
   const showCategorySlidePrompt = document.getElementById("showCategorySlidePrompt");
-  showCategorySlidePrompt.addEventListener("click", () => {
-    OneSignal.push(function() {            
-      OneSignal.showCategorySlidedown();
-    });
-  })
+  if (
+    typeof showCategorySlidePrompt != "undefined" &&
+    showCategorySlidePrompt != null
+  ) {
+    showCategorySlidePrompt.addEventListener("click", () => {
+      OneSignal.push(function() {            
+        OneSignal.showCategorySlidedown();
+      });
+    })
+  }
   
 
 
