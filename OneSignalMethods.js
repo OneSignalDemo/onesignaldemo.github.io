@@ -56,7 +56,11 @@ window.addEventListener("load", () => {
       mixpanel.identify(myCustomUniqueUserId);
       console.log("External User ID: ", myCustomUniqueUserId);
       OneSignal.getUserId(function (userId) {
-        mixpanel.people.set("$onesignal_user_id", userId);
+        mixpanel.people.set({
+        $onesignal_user_id: userId,
+        $first_name: 'Billy',
+        $last_name: 'Bob'
+      });
       });
     });
       OneSignal.on('notificationPermissionChange', function(permissionChange) {
