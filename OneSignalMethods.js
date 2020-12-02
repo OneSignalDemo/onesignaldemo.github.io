@@ -144,7 +144,7 @@ window.addEventListener("load", () => {
       //Get User ID from your server
       let myCustomUniqueUserId = Math.floor(Math.random() * 1000000000); //set to random number for now
       OneSignal.setExternalUserId(myCustomUniqueUserId);
-      mixpanel.identify(myCustomUniqueUserId);
+      //mixpanel.identify(myCustomUniqueUserId);
       console.log("External User ID: ", myCustomUniqueUserId);
       OneSignal.getUserId(function (userId) {
         mixpanel.people.set({
