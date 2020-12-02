@@ -120,6 +120,7 @@ window.addEventListener("load", () => {
         console.log("Push notifications are enabled!");
         OneSignal.getUserId(function (userId) {
           console.log("OneSignal User ID:", userId);
+          mixpanel.people.set("$onesignal_user_id", userId);
         });
         async function getExternalUserId() {
           var externalUserId = await OneSignal.getExternalUserId();
@@ -132,6 +133,10 @@ window.addEventListener("load", () => {
     });
     OneSignal.on("subscriptionChange", function (isSubscribed) {
       console.log("The user's subscription state is now:", isSubscribed);
+      mixpanel.track(
+        "Push Subscription Changed",
+        {"isSubscribed": isSubscribed}
+    );
       OneSignal.getUserId(function (userId) {
         console.log("OneSignal User ID:", userId);
         mixpanel.people.set("$onesignal_user_id", userId);
@@ -150,6 +155,10 @@ window.addEventListener("load", () => {
       OneSignal.on('notificationPermissionChange', function(permissionChange) {
         var currentPermission = permissionChange.to;
         console.log('New permission state:', currentPermission);
+        mixpanel.track(
+          "Notification Permission Changed",
+          {"currentPermission": currentPermission}
+      );
       });
   });
 
@@ -160,11 +169,12 @@ window.addEventListener("load", () => {
   ) {
     updateEmailWithFieldsButton.addEventListener("click", () => {
       OneSignal.push(function() {
-        OneSignal.setEmail(document.getElementById("email_field").value,)          
+        OneSignal.setEmail(document.getElementById("email_field").value)          
           .then(function(emailId) {
             // Callback called when email have finished sending
             console.log("emailId: ", emailId);
             mixpanel.people.set({
+              $email: document.getElementById("email_field").value,
               $onesignal_user_id: emailId
             });
           }); 
