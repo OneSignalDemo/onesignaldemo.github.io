@@ -110,11 +110,25 @@ window.OneSignal.push(async () => {
 
 window.addEventListener("load", () => {
 
-  //Get User ID from your server
-  let myCustomUniqueUserId = Math.floor(Math.random() * 1000000000); //set to random number for now
+  // Dummy Function to create and set an example External User ID
+  function getAndSetExternalUserIdInLocalStorage() {
+    var externalUserIdInLocalStorage = localStorage.getItem("externalUserIdInLocalStorage")
+    console.log("externalUserIdInLocalStorage: ", externalUserIdInLocalStorage)
+    if (externalUserIdInLocalStorage === null) {
+      externalUserIdInLocalStorage = String(Math.floor(Math.random() * 1000000000)); //set to random number for now
+      localStorage.setItem("externalUserIdInLocalStorage", externalUserIdInLocalStorage)
+    }
+    return externalUserIdInLocalStorage
+  }
+
+  let externalUserId = getAndSetExternalUserIdInLocalStorage();
+  console.log("externalUserId: ", externalUserId)
+  // Create the Mixpanel User Profile for this User ID: https://developer.mixpanel.com/docs/javascript#storing-user-profiles
+  mixpanel.identify(externalUserId)
+
+
+  // -------------------------------- OneSignal Examples -------------------------------- //
   
-  // -------------------------------- Quick Examples -------------------------------- //
-  //Subscription methods
   OneSignal.push(function () {
     var isPushSupported = OneSignal.isPushNotificationsSupported();
     console.log("Push Supported on Browser: ", isPushSupported);
@@ -130,41 +144,40 @@ window.addEventListener("load", () => {
         })
         async function getExternalUserId() {
           var externalUserId = await OneSignal.getExternalUserId();
-          console.log("OneSignal External User ID:", externalUserId );
+          console.log("OneSignal External User ID set:", externalUserId );
         }
         getExternalUserId();
       }
       else
         console.log("Push notifications are not enabled yet.");    
     });
+
+    // SUBSCRIPTION CHANGE EVENT
     OneSignal.on("subscriptionChange", function (isSubscribed) {
       console.log("The user's subscription state is now:", isSubscribed);
       mixpanel.track(
         "Push Subscription Changed",
         {"isSubscribed": isSubscribed}
-    );
+      );
       OneSignal.getUserId(function (userId) {
         console.log("OneSignal User ID:", userId);
-        mixpanel.people.set("$onesignal_user_id", userId);
-      });
-      
-      OneSignal.setExternalUserId(myCustomUniqueUserId);
-      mixpanel.identify(myCustomUniqueUserId);
-      console.log("External User ID: ", myCustomUniqueUserId);
-      OneSignal.getUserId(function (userId) {
         mixpanel.people.set({
           $onesignal_user_id: userId
         });
       });
+      
+      OneSignal.setExternalUserId(externalUserId);
+      
     });
-      OneSignal.on('notificationPermissionChange', function(permissionChange) {
-        var currentPermission = permissionChange.to;
-        console.log('New permission state:', currentPermission);
-        mixpanel.track(
-          "Notification Permission Changed",
-          {"currentPermission": currentPermission}
+
+    OneSignal.on('notificationPermissionChange', function(permissionChange) {
+      var currentPermission = permissionChange.to;
+      console.log('New permission state:', currentPermission);
+      mixpanel.track(
+        "Notification Permission Changed",
+        {"currentPermission": currentPermission}
       );
-      });
+    });
   });
 
   const updateEmailWithFieldsButton = document.getElementById("updateEmailWithFieldsButton");
@@ -176,10 +189,11 @@ window.addEventListener("load", () => {
       OneSignal.push(function() {
         let email = document.getElementById("email_field").value
         console.log("about to setEmail: ", email)
+        mixpanel.alias(externalUserId + "_email", externalUserId);
         OneSignal.setEmail(email)          
           .then(function(emailId) {
             // Callback called when email have finished sending
-            OneSignal.setExternalUserId(myCustomUniqueUserId);
+            //OneSignal.setExternalUserId(externalUserId);
             console.log("emailId: ", emailId);
             mixpanel.people.set({
               $email: email,
