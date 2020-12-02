@@ -119,9 +119,12 @@ window.addEventListener("load", () => {
       if (isEnabled) {
         console.log("Push notifications are enabled!");
         OneSignal.getUserId(function (userId) {
-          console.log("OneSignal User ID:", userId);
+          console.log("OneSignal Push User ID:", userId);
           mixpanel.people.set("$onesignal_user_id", userId);
         });
+        OneSignal.getEmailId(function(emailId) {
+          console.log("OneSignal Email User ID:", emailId)
+        })
         async function getExternalUserId() {
           var externalUserId = await OneSignal.getExternalUserId();
           console.log("OneSignal External User ID:", externalUserId );
