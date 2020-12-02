@@ -8,12 +8,98 @@
     OneSignal.push(function () {
       OneSignal.init({
         //appId: "380dc082-5231-4cc2-ab51-a03da5a0e4c2", // testing
+        allowLocalhostAsSecureOrigin: true,
         appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3", //main
+        promptOptions:{
+          slidedown:{
+            autoPrompt: true,
+            enabled: true,
+            actionMessage:"Get Updated on our products?",
+            acceptButtonText:"Of course!",
+            cancelButtonText:"Maybe later",
+            categories: {
+              tags: [
+                {
+                  tag: "prefer_newitems",
+                  label: "New Items 🛒"
+                },
+                {
+                  tag: "prefer_saleitems",
+                  label: "Sale Items 💳"
+                },
+                {
+                  tag: "prefer_limiteditems",
+                  label: "Limited Items ⭐"
+                }
+              ]
+            }
+          }
+        },
       });
     });
+//------------------TEST CODE
+window.OneSignal.push(async () => {
+  window.OneSignal.addListenerForNotificationOpened(notification => {
+      console.log("notification: ", notification);
+  });
+});
+//------------------TEST CODE
+
+    
   };
   script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
   d.getElementsByTagName("head")[0].appendChild(script);
+
+//TEST CODE
+  // var osTagsForPage = {"kia": 0, "used": 0, "rio": 0}
+
+  // function osUpdateTags(osTags) {
+  //   OneSignal.push(function() {
+  //     OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+  //       console.log("isEnabled: ", isEnabled);
+  //       if (isEnabled) {        
+	// 	      OneSignal.sendTags(osTags).then(function(tagsSent) {
+	// 	      // Callback called when tags have finished sending
+	// 	      console.log("tagsSent: ", tagsSent)  
+	// 	      });  
+  //       }
+  //     });
+  //   });
+  // }
+
+  // if (typeof localStorage !== "undefined") {
+  //   var osTags = getOSTags();
+  //   var tagsUpdated = false
+
+  //   for (key in osTagsForPage){
+  //     if (key in osTags){
+  //       console.log(key)
+  //       if (!isNaN(osTags[key])) {
+  //         osTags[key] = (osTags[key]+1 || 1);
+  //         tagsUpdated = true;
+  //       } else {
+  //         console.log("tag key's value not a number: ", osTags[key])
+  //       }
+  //     } else {
+  //       osTags[key] = 1;
+  //       tagsUpdated = true;
+  //     }
+  //   }
+  //   localStorage.setItem("osTags", JSON.stringify(osTags));
+
+  //   if (tagsUpdated) {
+  //     osUpdateTags(osTags)
+  //   }
+  // }
+
+  // function getOSTags(){
+  //   return localStorage.getItem("osTags")
+  //     ? JSON.parse(localStorage.getItem("osTags"))
+  //     : [];
+  // }
+
+// END TEST CODE
+
 })(document);
 
 (function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
@@ -57,10 +143,8 @@ window.addEventListener("load", () => {
       console.log("External User ID: ", myCustomUniqueUserId);
       OneSignal.getUserId(function (userId) {
         mixpanel.people.set({
-        $onesignal_user_id: userId,
-        $first_name: 'Billy',
-        $last_name: 'Bob'
-      });
+          $onesignal_user_id: userId
+        });
       });
     });
       OneSignal.on('notificationPermissionChange', function(permissionChange) {
@@ -68,6 +152,25 @@ window.addEventListener("load", () => {
         console.log('New permission state:', currentPermission);
       });
   });
+
+  const updateEmailWithFieldsButton = document.getElementById("updateEmailWithFieldsButton");
+  if (
+    typeof updateEmailWithFieldsButton != "undefined" &&
+    updateEmailWithFieldsButton != null
+  ) {
+    updateEmailWithFieldsButton.addEventListener("click", () => {
+      OneSignal.push(function() {
+        OneSignal.setEmail(document.getElementById("email_field").value,)          
+          .then(function(emailId) {
+            // Callback called when email have finished sending
+            console.log("emailId: ", emailId);
+            mixpanel.people.set({
+              $onesignal_user_id: emailId
+            });
+          }); 
+      });
+    })
+  }
 
   const tagUserWithFieldsButton = document.getElementById("tagUserWithFieldsButton");
   if (
@@ -84,6 +187,20 @@ window.addEventListener("load", () => {
       });
     })
   }
+
+  const updateNameInMixpanel = document.getElementById("updateNameInMixpanel");
+  if (
+    typeof updateNameInMixpanel != "undefined" &&
+    updateNameInMixpanel != null
+  ) {
+    updateNameInMixpanel.addEventListener("click", () => {
+      mixpanel.people.set({
+        $first_name: document.getElementById("$first_name").value,
+        $last_name: document.getElementById("$last_name").value
+      });
+      console.log("Mixpanel $first_name & $last_name updated: ", document.getElementById("$first_name").value + " " + document.getElementById("$last_name").value);
+    })
+  }  
 
   const showCategorySlidePrompt = document.getElementById("showCategorySlidePrompt");
   if (
@@ -189,6 +306,7 @@ window.addEventListener("load", () => {
         });
       } else {
         OneSignal.sendTags({
+          purchase_made: "true",
           cart_update: "",
           product_name: "",
           product_image: "",
@@ -237,21 +355,32 @@ window.addEventListener("load", () => {
 });
 
 function updateOSOnCartPurchase(checkoutPriceTotal, checkoutItemsTotal) {
-  let purchasePriceTotal = parseFloat(checkoutPriceTotal);
+  let purchasePriceTotal = parseInt(checkoutPriceTotal);
   let purchasedItemCount = parseInt(checkoutItemsTotal);
+
   OneSignal.push(function () {
-    OneSignal.sendTags({
-      cart_update: "",
-      product_name: "",
-      product_image: "",
-    }).then(function (tagsSent) {
-      // Callback called when tags have finished sending
-      console.log(tagsSent);
-    });
-    OneSignal.sendOutcome("Purchase", purchasePriceTotal);
-    OneSignal.sendOutcome("Purchased Item Count", purchasedItemCount);
-    console.log("Purchase made! Outcomes sent:");
-    console.log("Purchase ", purchasePriceTotal);
-    console.log("Purchased Item Count ", purchasedItemCount);
+    OneSignal.getTags(function(tags) {
+      var purchase_amount = 0;
+      if (tags.purchase_amount) {
+        purchase_amount = parseInt(tags.purchase_amount)
+      }
+      console.log("current purchase_amount: ", purchase_amount);
+      purchase_amount += purchasePriceTotal
+      OneSignal.sendTags({
+        purchase_made: "true",
+        purchase_amount: purchase_amount,
+        cart_update: "",
+        product_name: "",
+        product_image: "",
+      }).then(function (tagsSent) {
+        // Callback called when tags have finished sending
+        console.log(tagsSent);
+      });
+      OneSignal.sendOutcome("Purchase", purchasePriceTotal);
+      OneSignal.sendOutcome("Purchased Item Count", purchasedItemCount);
+      console.log("Purchase made! Outcomes sent:");
+      console.log("Purchase ", purchasePriceTotal);
+      console.log("Purchased Item Count ", purchasedItemCount);
+    })
   });
 }

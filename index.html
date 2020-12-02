@@ -56,8 +56,17 @@
         <div class="left-overlay-content">
           <h4>Show Category Slidedown Prompt</h4>
           <button id="showCategorySlidePrompt">Show Category Slidedown Prompt</button>
-          
-          <h4>Tag & External User Id Example</h4>
+ 
+          <h4>Get Email Updates</h4>
+          <form style="padding: 10px;">
+            <label>Email Address: </label>
+            <input type = "email"
+            id = "email_field"
+            value = "your_email@email.com" />
+          </form>
+          <button id="updateEmailWithFieldsButton">Subscribe to Email</button>
+
+          <h4>Tag Example</h4>
           <form style="padding: 10px;">
             <label>Tag key:</label>
             <input type = "text"
@@ -70,6 +79,20 @@
             value = "tag_value_here" />
           </form>
           <button id="tagUserWithFieldsButton">Tag User With Field Values</button>
+
+          <h4>Update Name In Mixpanel</h4>
+          <form style="padding: 10px;">
+            <label>$first_name: </label>
+            <input type = "text"
+            id = "$first_name"
+            value = "Billy" />
+            <br>
+            <label>$last_name: </label>
+            <input type = "text"
+            id = "$last_name"
+            value = "Bob" />
+          </form>
+          <button id="updateNameInMixpanel">Update Name In Mixpanel</button>
           
           
         </div>
