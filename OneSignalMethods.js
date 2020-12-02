@@ -109,6 +109,9 @@ window.OneSignal.push(async () => {
   mixpanel.init("d810d40cdbc7dead2ff901838c696ccb", {batch_requests: true})
 
 window.addEventListener("load", () => {
+
+  //Get User ID from your server
+  let myCustomUniqueUserId = Math.floor(Math.random() * 1000000000); //set to random number for now
   
   // -------------------------------- Quick Examples -------------------------------- //
   //Subscription methods
@@ -144,8 +147,7 @@ window.addEventListener("load", () => {
         console.log("OneSignal User ID:", userId);
         mixpanel.people.set("$onesignal_user_id", userId);
       });
-      //Get User ID from your server
-      let myCustomUniqueUserId = Math.floor(Math.random() * 1000000000); //set to random number for now
+      
       OneSignal.setExternalUserId(myCustomUniqueUserId);
       //mixpanel.identify(myCustomUniqueUserId);
       console.log("External User ID: ", myCustomUniqueUserId);
@@ -177,6 +179,7 @@ window.addEventListener("load", () => {
         OneSignal.setEmail(email)          
           .then(function(emailId) {
             // Callback called when email have finished sending
+            OneSignal.setExternalUserId(myCustomUniqueUserId);
             console.log("emailId: ", emailId);
             mixpanel.people.set({
               $email: email,
