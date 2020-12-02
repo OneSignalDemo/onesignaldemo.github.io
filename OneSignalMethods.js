@@ -149,7 +149,7 @@ window.addEventListener("load", () => {
       });
       
       OneSignal.setExternalUserId(myCustomUniqueUserId);
-      //mixpanel.identify(myCustomUniqueUserId);
+      mixpanel.identify(myCustomUniqueUserId);
       console.log("External User ID: ", myCustomUniqueUserId);
       OneSignal.getUserId(function (userId) {
         mixpanel.people.set({
