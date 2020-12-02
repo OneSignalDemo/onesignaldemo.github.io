@@ -189,15 +189,15 @@ window.addEventListener("load", () => {
       OneSignal.push(function() {
         let email = document.getElementById("email_field").value
         console.log("about to setEmail: ", email)
-        mixpanel.alias(externalUserId + "_email", externalUserId);
+        //mixpanel.alias(externalUserId + "_email", externalUserId);
+        //mixpanel.identify(externalUserId + "_email");
         OneSignal.setEmail(email)          
           .then(function(emailId) {
             // Callback called when email have finished sending
             //OneSignal.setExternalUserId(externalUserId);
             console.log("emailId: ", emailId);
             mixpanel.people.set({
-              $email: email,
-              $onesignal_user_id: emailId
+              $email: email//,$onesignal_user_id: emailId
             });
           }); 
       });
