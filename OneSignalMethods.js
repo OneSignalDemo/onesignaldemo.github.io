@@ -169,12 +169,14 @@ window.addEventListener("load", () => {
   ) {
     updateEmailWithFieldsButton.addEventListener("click", () => {
       OneSignal.push(function() {
-        OneSignal.setEmail(document.getElementById("email_field").value)          
+        let email = document.getElementById("email_field").value
+        console.log("about to setEmail: ", email)
+        OneSignal.setEmail(email)          
           .then(function(emailId) {
             // Callback called when email have finished sending
             console.log("emailId: ", emailId);
             mixpanel.people.set({
-              $email: document.getElementById("email_field").value,
+              $email: email,
               $onesignal_user_id: emailId
             });
           }); 
