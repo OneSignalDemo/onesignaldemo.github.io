@@ -125,6 +125,7 @@ window.addEventListener("load", () => {
   console.log("externalUserId: ", externalUserId)
   // Create the Mixpanel User Profile for this User ID: https://developer.mixpanel.com/docs/javascript#storing-user-profiles
   mixpanel.identify(externalUserId)
+  console.log("mixpanel.identify set with externalUserId: ", externalUserId);
 
 
   // -------------------------------- OneSignal Examples -------------------------------- //
