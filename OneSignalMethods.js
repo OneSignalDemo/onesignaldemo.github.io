@@ -7,9 +7,9 @@
     window.OneSignal = window.OneSignal || [];
     OneSignal.push(function () {
       OneSignal.init({
-        //appId: "380dc082-5231-4cc2-ab51-a03da5a0e4c2", // testing
+        appId: "380dc082-5231-4cc2-ab51-a03da5a0e4c2", // testing
         allowLocalhostAsSecureOrigin: true,
-        appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3", //main
+        //appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3", //main
         promptOptions:{
           slidedown:{
             autoPrompt: true,
@@ -37,10 +37,13 @@
         },
       });
     });
+    
 //------------------TEST CODE
 window.OneSignal.push(async () => {
   window.OneSignal.addListenerForNotificationOpened(notification => {
       console.log("notification: ", notification);
+      let timestamp = Math.floor(Date.now() / 1000);
+      OneSignal.sendTag("last_notification_click", timestamp);
   });
 });
 //------------------TEST CODE
