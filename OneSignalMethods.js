@@ -170,7 +170,9 @@ window.addEventListener("load", () => {
         });
       });
       
-      OneSignal.setExternalUserId(externalUserId);
+      OneSignal.setExternalUserId(externalUserId).then(function() {
+        console.log("externalUserId set after subscription change: ", externalUserId);
+      })
       
     });
 
@@ -198,8 +200,10 @@ window.addEventListener("load", () => {
         OneSignal.setEmail(email)          
           .then(function(emailId) {
             // Callback called when email have finished sending
-            //OneSignal.setExternalUserId(externalUserId);
             console.log("emailId: ", emailId);
+            OneSignal.setExternalUserId(externalUserId).then(function() {
+              console.log("externalUserId set after email provided: ", externalUserId);
+            })
             mixpanel.people.set({
               $email: email//,$onesignal_user_id: emailId
             });
