@@ -141,7 +141,6 @@ window.addEventListener("load", () => {
         console.log("Push notifications are enabled!");
         OneSignal.getUserId(function (userId) {
           console.log("OneSignal Push User ID:", userId);
-          mixpanel.people.set("$onesignal_user_id", userId);
         });
         OneSignal.getEmailId(function(emailId) {
           console.log("OneSignal Email User ID:", emailId)
@@ -149,6 +148,8 @@ window.addEventListener("load", () => {
         async function getExternalUserId() {
           var externalUserId = await OneSignal.getExternalUserId();
           console.log("OneSignal External User ID set:", externalUserId );
+          console.log("Settings External User ID to Mixpanel");
+          mixpanel.people.set("$onesignal_user_id", externalUserId);
         }
         getExternalUserId();
       }
@@ -165,13 +166,12 @@ window.addEventListener("load", () => {
       );
       OneSignal.getUserId(function (userId) {
         console.log("OneSignal User ID:", userId);
-        mixpanel.people.set({
-          $onesignal_user_id: userId
-        });
       });
       
       OneSignal.setExternalUserId(externalUserId).then(function() {
         console.log("externalUserId set after subscription change: ", externalUserId);
+        console.log("Settings External User ID to Mixpanel");
+        mixpanel.people.set("$onesignal_user_id", externalUserId);
       })
       
     });
