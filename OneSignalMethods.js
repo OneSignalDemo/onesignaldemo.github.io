@@ -53,56 +53,6 @@
   script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
   d.getElementsByTagName("head")[0].appendChild(script);
 
-  //TEST CODE
-  // var osTagsForPage = {"kia": 0, "used": 0, "rio": 0}
-
-  // function osUpdateTags(osTags) {
-  //   OneSignal.push(function() {
-  //     OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-  //       console.log("isEnabled: ", isEnabled);
-  //       if (isEnabled) {        
-  // 	      OneSignal.sendTags(osTags).then(function(tagsSent) {
-  // 	      // Callback called when tags have finished sending
-  // 	      console.log("tagsSent: ", tagsSent)  
-  // 	      });  
-  //       }
-  //     });
-  //   });
-  // }
-
-  // if (typeof localStorage !== "undefined") {
-  //   var osTags = getOSTags();
-  //   var tagsUpdated = false
-
-  //   for (key in osTagsForPage){
-  //     if (key in osTags){
-  //       console.log(key)
-  //       if (!isNaN(osTags[key])) {
-  //         osTags[key] = (osTags[key]+1 || 1);
-  //         tagsUpdated = true;
-  //       } else {
-  //         console.log("tag key's value not a number: ", osTags[key])
-  //       }
-  //     } else {
-  //       osTags[key] = 1;
-  //       tagsUpdated = true;
-  //     }
-  //   }
-  //   localStorage.setItem("osTags", JSON.stringify(osTags));
-
-  //   if (tagsUpdated) {
-  //     osUpdateTags(osTags)
-  //   }
-  // }
-
-  // function getOSTags(){
-  //   return localStorage.getItem("osTags")
-  //     ? JSON.parse(localStorage.getItem("osTags"))
-  //     : [];
-  // }
-
-  // END TEST CODE
-
 })(document);
 
 (function (c, a) {
@@ -261,7 +211,19 @@ window.addEventListener("load", () => {
   ) {
     showCategorySlidePrompt.addEventListener("click", () => {
       OneSignal.push(function () {
-        OneSignal.showCategorySlidedown();
+        OneSignal.showCategorySlidedown({ force: true });
+      });
+    })
+  }
+
+  const showSmsAndEmailSlidedown = document.getElementById("showSmsAndEmailSlidedown");
+  if (
+    typeof showSmsAndEmailSlidedown != "undefined" &&
+    showSmsAndEmailSlidedown != null
+  ) {
+    showSmsAndEmailSlidedown.addEventListener("click", () => {
+      OneSignal.push(function () {
+        OneSignal.showSmsAndEmailSlidedown({ force: true });
       });
     })
   }

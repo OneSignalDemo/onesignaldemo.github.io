@@ -1,156 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>OneSignal Store Demo</title>
-    <!-- OneSignal Init-->
-    <script src="OneSignalMethods.js"></script>
 
-    <!--End OneSignal Init-->
-    <!-- Mixpanel Init-->
-    <!-- <script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
-      0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
-      for(h=0;h<l.length;h++)c(e,l[h]);var f="set set_once union unset remove delete".split(" ");e.get_group=function(){function a(c){b[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));e.push([d,call2])}}for(var b={},d=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<f.length;c++)a(f[c]);return b};a._i.push([b,d,g])};a.__SV=1.2;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
-      MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d)}})(document,window.mixpanel||[]);
-      mixpanel.init("d810d40cdbc7dead2ff901838c696ccb", {batch_requests: true})</script> -->
-      <!-- End Mixpanel Init-->
-    <!-- font awesome-->
-    <script
-      src="https://kit.fontawesome.com/b198ccf02e.js"
-      crossorigin="anonymous"
-    ></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>OneSignal Store Demo</title>
+  <!-- OneSignal Init-->
+  <script src="OneSignalMethods.js"></script>
+  <!-- font awesome-->
+  <script src="https://kit.fontawesome.com/b198ccf02e.js" crossorigin="anonymous"></script>
 
-    <!-- custom css -->
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="grid-container">
-      <header class="header">
-        <div class="left-menu">
-          <button onclick="openLeftMenu()">
-            <span class="nav-icon">
-              <i class="fas fa-bars"></i>
-            </span>
-          </button>
-        </div>
-        <div class="brand">
-          <a href="/">OneSignal Store Demo</a>
-        </div>
-        <div class="cart-btn">
+  <!-- custom css -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="grid-container">
+    <header class="header">
+      <div class="left-menu">
+        <button onclick="openLeftMenu()">
           <span class="nav-icon">
-            <i class="fas fa-cart-plus"></i>
+            <i class="fas fa-bars"></i>
           </span>
-          <div class="cart-items">0</div>
-        </div>
-      </header>
-      <!--left overlay -->
-      <aside class="left-overlay">
-        
-        <button class="left-overlay-close-button" onclick="closeLeftMenu()">
-          <i class="fas fa-window-close"></i>
         </button>
-        <h3 style="margin-top: 30px; padding-left: 100px; padding-top: 30px; padding-bottom: 10px;">Quick Examples</h3>
-        <hr>
-        <div class="left-overlay-content">
-          <h4>Show Category Slidedown Prompt</h4>
-          <button id="showCategorySlidePrompt">Show Category Slidedown Prompt</button>
- 
-          <h4>Get Email Updates</h4>
-          <form style="padding: 10px;">
-            <label>Email Address: </label>
-            <input type = "email"
-            id = "email_field"
-            value = "your_email@email.com" />
-          </form>
-          <button id="updateEmailWithFieldsButton">Subscribe to Email</button>
+      </div>
+      <div class="brand">
+        <a href="/">OneSignal Store Demo</a>
+      </div>
+      <div class="cart-btn">
+        <span class="nav-icon">
+          <i class="fas fa-cart-plus"></i>
+        </span>
+        <div class="cart-items">0</div>
+      </div>
+    </header>
+    <!--left overlay -->
+    <aside class="left-overlay">
 
-          <h4>Tag Example</h4>
-          <form style="padding: 10px;">
-            <label>Tag key:</label>
-            <input type = "text"
-            id = "tagKey"
-            value = "tag_key_here" />
-            <br>
-            <label>Tag value:</label>
-            <input type = "text"
-            id = "tagValue"
-            value = "tag_value_here" />
-          </form>
-          <button id="tagUserWithFieldsButton">Tag User With Field Values</button>
+      <button class="left-overlay-close-button" onclick="closeLeftMenu()">
+        <i class="fas fa-window-close"></i>
+      </button>
+      <h3 style="margin-top: 30px; padding-left: 100px; padding-top: 30px; padding-bottom: 10px;">Quick Examples</h3>
+      <hr>
+      <div class="left-overlay-content">
+        <h4>Show Category Slidedown Prompt</h4>
+        <button id="showCategorySlidePrompt">Show Category Slidedown Prompt</button>
 
-          <h4>Update Name In Mixpanel</h4>
-          <form style="padding: 10px;">
-            <label>$first_name: </label>
-            <input type = "text"
-            id = "$first_name"
-            value = "Billy" />
-            <br>
-            <label>$last_name: </label>
-            <input type = "text"
-            id = "$last_name"
-            value = "Bob" />
-          </form>
-          <button id="updateNameInMixpanel">Update Name In Mixpanel</button>
-          
-          
+        <h4>Show SMS & Email Slidedown Prompt</h4>
+        <button id="showSmsAndEmailSlidedown">Show SMS & Email Slidedown Prompt</button>
+
+        <h4>Get Email Updates</h4>
+        <form style="padding: 10px;">
+          <label>Email Address: </label>
+          <input type="email" id="email_field" value="your_email@email.com" />
+        </form>
+        <button id="updateEmailWithFieldsButton">Subscribe to Email</button>
+
+        <h4>Tag Example</h4>
+        <form style="padding: 10px;">
+          <label>Tag key:</label>
+          <input type="text" id="tagKey" value="tag_key_here" />
+          <br>
+          <label>Tag value:</label>
+          <input type="text" id="tagValue" value="tag_value_here" />
+        </form>
+        <button id="tagUserWithFieldsButton">Tag User With Field Values</button>
+
+        <h4>Update Name In Mixpanel</h4>
+        <form style="padding: 10px;">
+          <label>$first_name: </label>
+          <input type="text" id="$first_name" value="Billy" />
+          <br>
+          <label>$last_name: </label>
+          <input type="text" id="$last_name" value="Bob" />
+        </form>
+        <button id="updateNameInMixpanel">Update Name In Mixpanel</button>
+
+
+      </div>
+    </aside>
+    <!-- end left overlay -->
+    <!-- hero -->
+    <main class="hero">
+      <div class="banner">
+        <h1 class="banner-title">Sunglasses Collection</h1>
+        <button class="banner-btn">
+          <a href="#our-products">Shop Now</a>
+        </button>
+        <button class="banner-btn-green">
+          <a href="blog">Blog Coming Soon</a>
+        </button>
+      </div>
+    </main>
+    <!-- end hero -->
+    <!-- products -->
+    <section class="products-section">
+      <div class="section-title">
+        <h2 id="our-products">our products</h2>
+      </div>
+      <div class="products-center"></div>
+    </section>
+    <!-- end products -->
+    <!-- cart -->
+    <div class="cart-overlay">
+      <div class="cart">
+        <span class="close-cart">
+          <i class="fas fa-window-close"></i>
+        </span>
+        <h2>your cart</h2>
+        <div class="cart-content">
+          <!-- cart item added dynamically in app.js-->
         </div>
-      </aside>
-      <!-- end left overlay -->
-      <!-- hero -->
-      <main class="hero">
-        <div class="banner">
-          <h1 class="banner-title">Sunglasses Collection</h1>
-          <button class="banner-btn">
-            <a href="#our-products">Shop Now</a>
-          </button>
-          <button class="banner-btn-green">
-            <a href="blog">Blog Coming Soon</a>
-          </button>
-        </div>
-      </main>
-      <!-- end hero -->
-      <!-- products -->
-      <section class="products-section">
-        <div class="section-title">
-          <h2 id="our-products">our products</h2>
-        </div>
-        <div class="products-center"></div>
-      </section>
-      <!-- end products -->
-      <!-- cart -->
-      <div class="cart-overlay">
-        <div class="cart">
-          <span class="close-cart">
-            <i class="fas fa-window-close"></i>
-          </span>
-          <h2>your cart</h2>
-          <div class="cart-content">
-            <!-- cart item added dynamically in app.js-->
-          </div>
-          <div class="cart-footer">
-            <h3>your total : $ <span class="cart-total">0</span></h3>
-            <button class="clear-cart banner-btn">clear cart</button>
-            <a href="checkout" class="checkout-btn">Checkout</a>
-          </div>
+        <div class="cart-footer">
+          <h3>your total : $ <span class="cart-total">0</span></h3>
+          <button class="clear-cart banner-btn">clear cart</button>
+          <a href="checkout" class="checkout-btn">Checkout</a>
         </div>
       </div>
-      <!-- end cart -->
-      <footer class="footer">
-        <div class="footer-links">
-          <a href="https://onesignal.com">Get started at OneSignal.com</a>
-        </div>
-      </footer>
     </div>
-    <script>
-      function openLeftMenu() {
-        document.querySelector(".left-overlay").classList.add("open");
-      }
-      function closeLeftMenu() {
-        document.querySelector(".left-overlay").classList.remove("open");
-      }
-    </script>
-    <script src="app.js"></script>
-  </body>
+    <!-- end cart -->
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://onesignal.com">Get started at OneSignal.com</a>
+      </div>
+    </footer>
+  </div>
+  <script>
+    function openLeftMenu() {
+      document.querySelector(".left-overlay").classList.add("open");
+    }
+    function closeLeftMenu() {
+      document.querySelector(".left-overlay").classList.remove("open");
+    }
+  </script>
+  <script src="app.js"></script>
+</body>
+
 </html>
