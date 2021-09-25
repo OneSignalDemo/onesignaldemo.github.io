@@ -47,6 +47,13 @@
       });
     });
     //------------------TEST CODE
+    OneSignal.push(function () {
+      OneSignal.on('notificationDisplay', function (event) {
+        console.warn('OneSignal notification displayed:', event);
+      });
+
+      //This event can be listened to via the `on()` or `once()` listener
+    });
 
 
   };
@@ -89,7 +96,6 @@ window.addEventListener("load", () => {
   // Create the Mixpanel User Profile for this User ID: https://developer.mixpanel.com/docs/javascript#storing-user-profiles
   mixpanel.identify(externalUserId)
   console.log("mixpanel.identify set with externalUserId: ", externalUserId);
-
 
   // -------------------------------- OneSignal Examples -------------------------------- //
 
@@ -155,8 +161,6 @@ window.addEventListener("load", () => {
       OneSignal.push(function () {
         let email = document.getElementById("email_field").value
         console.log("about to setEmail: ", email)
-        //mixpanel.alias(externalUserId + "_email", externalUserId);
-        //mixpanel.identify(externalUserId + "_email");
         OneSignal.logoutEmail().then(function () {
           OneSignal.setEmail(email)
             .then(function (emailId) {
