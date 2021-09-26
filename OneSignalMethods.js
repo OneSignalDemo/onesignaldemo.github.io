@@ -189,15 +189,6 @@ window.addEventListener("load", () => {
     })
   }
 
-  function osSetExternalUserId(userId) {
-    OneSignal.setExternalUserId(userId).then(function () {
-      console.log("externalUserId set after subscription change: ", userId);
-      console.log("Settings External User ID to Mixpanel");
-      mixpanel.identify(userId)
-      mixpanel.people.set("$onesignal_user_id", userId);
-    })
-  }
-
   // -------------------------------- Google SignIn Example -------------------------------- //
 
   const googleLogoutButton = document.getElementById("logOutRemoveExternalUserId");
@@ -398,4 +389,13 @@ function onSignIn(googleUser) {
   // The ID token you need to pass to your backend:
   var id_token = googleUser.getAuthResponse().id_token;
   console.log("ID Token: " + id_token);
+}
+
+function osSetExternalUserId(userId) {
+  OneSignal.setExternalUserId(userId).then(function () {
+    console.log("externalUserId set after subscription change: ", userId);
+    console.log("Settings External User ID to Mixpanel");
+    mixpanel.identify(userId)
+    mixpanel.people.set("$onesignal_user_id", userId);
+  })
 }
