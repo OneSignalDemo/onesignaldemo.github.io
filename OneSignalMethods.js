@@ -121,16 +121,7 @@ window.addEventListener("load", () => {
       OneSignal.push(function () {
         let email = document.getElementById("email_field").value
         console.log("about to setEmail: ", email)
-        OneSignal.logoutEmail().then(function () {
-          OneSignal.setEmail(email)
-            .then(function (emailId) {
-              // Callback called when email have finished sending
-              console.log("emailId: ", emailId);
-              mixpanel.people.set({
-                $email: email//,$onesignal_user_id: emailId
-              });
-            });
-        })
+        osSetEmail(email);
       });
     })
   }
@@ -360,20 +351,6 @@ function updateOSOnCartPurchase(checkoutPriceTotal, checkoutItemsTotal) {
 
 // -------------------------------- Google SignIn Example -------------------------------- //
 
-const googleLogoutButton = document.getElementById("logOutRemoveExternalUserId");
-if (
-  typeof googleLogoutButton != "undefined" &&
-  googleLogoutButton != null
-) {
-  googleLogoutButton.addEventListener("click", () => {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      OneSignal.removeExternalUserId();
-      console.log('User signed out.');
-    });
-  });
-}
-
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
   console.log("ID: " + profile.getId());
@@ -387,8 +364,18 @@ function onSignIn(googleUser) {
   console.log("Email: " + profile.getEmail());
 
   // The ID token you need to pass to your backend:
-  var id_token = googleUser.getAuthResponse().id_token;
-  console.log("ID Token: " + id_token);
+  //var id_token = googleUser.getAuthResponse().id_token;
+  //console.log("ID Token: " + id_token);
+}
+
+function onSignOut() {
+  googleLogoutButton.addEventListener("click", () => {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      OneSignal.removeExternalUserId();
+      console.log('User signed out.');
+    });
+  });
 }
 
 function osSetExternalUserId(userId) {
@@ -398,4 +385,16 @@ function osSetExternalUserId(userId) {
     mixpanel.identify(userId)
     mixpanel.people.set("$onesignal_user_id", userId);
   })
+}
+
+function osSetEmail(email) {
+  console.log("about to setEmail: ", email)
+  OneSignal.setEmail(email)
+    .then(function (emailId) {
+      // Callback called when email have finished sending
+      console.log("emailId: ", emailId);
+      mixpanel.people.set({
+        $email: email//,$onesignal_user_id: emailId
+      });
+    });
 }
