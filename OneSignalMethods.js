@@ -189,22 +189,6 @@ window.addEventListener("load", () => {
     })
   }
 
-  // -------------------------------- Google SignIn Example -------------------------------- //
-
-  const googleLogoutButton = document.getElementById("logOutRemoveExternalUserId");
-  if (
-    typeof googleLogoutButton != "undefined" &&
-    googleLogoutButton != null
-  ) {
-    googleLogoutButton.addEventListener("click", () => {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        OneSignal.removeExternalUserId();
-        console.log('User signed out.');
-      });
-    });
-  }
-
   // -------------------------------- Abandoned Cart Example -------------------------------- //
   class OSCart {
     //Example if page has a single "Add to cart" button
@@ -371,6 +355,22 @@ function updateOSOnCartPurchase(checkoutPriceTotal, checkoutItemsTotal) {
       console.log("Purchase ", purchasePriceTotal);
       console.log("Purchased Item Count ", purchasedItemCount);
     })
+  });
+}
+
+// -------------------------------- Google SignIn Example -------------------------------- //
+
+const googleLogoutButton = document.getElementById("logOutRemoveExternalUserId");
+if (
+  typeof googleLogoutButton != "undefined" &&
+  googleLogoutButton != null
+) {
+  googleLogoutButton.addEventListener("click", () => {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      OneSignal.removeExternalUserId();
+      console.log('User signed out.');
+    });
   });
 }
 
