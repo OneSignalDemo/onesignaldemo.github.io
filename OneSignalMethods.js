@@ -72,27 +72,7 @@
 mixpanel.init("d810d40cdbc7dead2ff901838c696ccb", { batch_requests: true })
 
 window.addEventListener("load", () => {
-
-  // Dummy Function to create and set an example External User ID
-  function getAndSetExternalUserIdInLocalStorage() {
-    var externalUserIdInLocalStorage = localStorage.getItem("externalUserIdInLocalStorage")
-    console.log("externalUserIdInLocalStorage: ", externalUserIdInLocalStorage)
-    if (externalUserIdInLocalStorage === null) {
-      externalUserIdInLocalStorage = String(Math.floor(Math.random() * 1000000000)); //set to random number for now
-      localStorage.setItem("externalUserIdInLocalStorage", externalUserIdInLocalStorage)
-    }
-    return externalUserIdInLocalStorage
-  }
-
-  let externalUserId = getAndSetExternalUserIdInLocalStorage();
-  console.log("externalUserId: ", externalUserId)
-  // Create the Mixpanel User Profile for this User ID: https://developer.mixpanel.com/docs/javascript#storing-user-profiles
-  mixpanel.identify(externalUserId)
-  console.log("mixpanel.identify set with externalUserId: ", externalUserId);
-
-
   // -------------------------------- OneSignal Examples -------------------------------- //
-
   OneSignal.push(function () {
     var isPushSupported = OneSignal.isPushNotificationsSupported();
     console.log("Push Supported on Browser: ", isPushSupported);
@@ -105,13 +85,6 @@ window.addEventListener("load", () => {
         OneSignal.getEmailId(function (emailId) {
           console.log("OneSignal Email User ID:", emailId)
         })
-        async function getExternalUserId() {
-          var externalUserId = await OneSignal.getExternalUserId();
-          console.log("OneSignal External User ID set:", externalUserId);
-          console.log("Settings External User ID to Mixpanel");
-          mixpanel.people.set("$onesignal_user_id", externalUserId);
-        }
-        getExternalUserId();
       }
       else
         console.log("Push notifications are not enabled yet.");
@@ -127,13 +100,6 @@ window.addEventListener("load", () => {
       OneSignal.getUserId(function (userId) {
         console.log("OneSignal User ID:", userId);
       });
-
-      OneSignal.setExternalUserId(externalUserId).then(function () {
-        console.log("externalUserId set after subscription change: ", externalUserId);
-        console.log("Settings External User ID to Mixpanel");
-        mixpanel.people.set("$onesignal_user_id", externalUserId);
-      })
-
     });
 
     OneSignal.on('notificationPermissionChange', function (permissionChange) {
@@ -155,16 +121,11 @@ window.addEventListener("load", () => {
       OneSignal.push(function () {
         let email = document.getElementById("email_field").value
         console.log("about to setEmail: ", email)
-        //mixpanel.alias(externalUserId + "_email", externalUserId);
-        //mixpanel.identify(externalUserId + "_email");
         OneSignal.logoutEmail().then(function () {
           OneSignal.setEmail(email)
             .then(function (emailId) {
               // Callback called when email have finished sending
               console.log("emailId: ", emailId);
-              OneSignal.setExternalUserId(externalUserId).then(function () {
-                console.log("externalUserId set after email provided: ", externalUserId);
-              })
               mixpanel.people.set({
                 $email: email//,$onesignal_user_id: emailId
               });
@@ -228,10 +189,22 @@ window.addEventListener("load", () => {
     })
   }
 
+  function osSetExternalUserId(userId) {
+    OneSignal.setExternalUserId(userId).then(function () {
+      console.log("externalUserId set after subscription change: ", userId);
+      console.log("Settings External User ID to Mixpanel");
+      mixpanel.identify(userId)
+      mixpanel.people.set("$onesignal_user_id", userId);
+    })
+  }
+
   // -------------------------------- Google SignIn Example -------------------------------- //
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    console.log("ID: " + profile.getId());
+    let googleUserId = profile.get();
+    osSetExternalUserId(googleUserId);
+
     console.log('Full Name: ' + profile.getName());
     console.log('Given Name: ' + profile.getGivenName());
     console.log('Family Name: ' + profile.getFamilyName());
