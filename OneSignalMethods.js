@@ -109,6 +109,10 @@ window.addEventListener("load", () => {
         "Push Subscription Changed",
         { "isSubscribed": isSubscribed }
       );
+      //segment.com
+      analytics.track('Push Subscription Changed', {
+        isSubscribed: isSubscribed
+      });
       OneSignal.getUserId(function (userId) {
         console.log("OneSignal User ID:", userId);
       });
@@ -121,6 +125,10 @@ window.addEventListener("load", () => {
         "Notification Permission Changed",
         { "currentPermission": currentPermission }
       );
+      //segment.com
+      analytics.track('Notification Permission Changed', {
+        currentPermission: currentPermission
+      });
     });
   });
 
@@ -154,17 +162,21 @@ window.addEventListener("load", () => {
     })
   }
 
-  const updateNameInMixpanel = document.getElementById("updateNameInMixpanel");
+  const updateNameInAnalytics = document.getElementById("updateNameInAnalytics");
   if (
-    typeof updateNameInMixpanel != "undefined" &&
-    updateNameInMixpanel != null
+    typeof updateNameInAnalytics != "undefined" &&
+    updateNameInAnalytics != null
   ) {
-    updateNameInMixpanel.addEventListener("click", () => {
+    updateNameInAnalytics.addEventListener("click", () => {
       mixpanel.people.set({
         $first_name: document.getElementById("$first_name").value,
         $last_name: document.getElementById("$last_name").value
       });
-      console.log("Mixpanel $first_name & $last_name updated: ", document.getElementById("$first_name").value + " " + document.getElementById("$last_name").value);
+      //segment.com
+      analytics.identify({
+        name: document.getElementById("$first_name").value + " " + document.getElementById("$last_name").value
+      });
+      console.log("Analytics $first_name & $last_name updated:", document.getElementById("$first_name").value + " " + document.getElementById("$last_name").value)
     })
   }
 
