@@ -77,8 +77,8 @@ mixpanel.init("d810d40cdbc7dead2ff901838c696ccb", { batch_requests: true })
 
 !function () {
   var analytics = window.analytics = window.analytics || []; if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
-    analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"]; analytics.factory = function (e) { return function () { var t = Array.prototype.slice.call(arguments); t.unshift(e); analytics.push(t); return analytics } }; for (var e = 0; e < analytics.methods.length; e++) { var key = analytics.methods[e]; analytics[key] = analytics.factory(key) } analytics.load = function (key, e) { var t = document.createElement("script"); t.type = "text/javascript"; t.async = !0; t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js"; var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(t, n); analytics._loadOptions = e }; analytics._writeKey = "Fgzue5bXqfY5mDhStQ77ff5t1dc4CAKa";; analytics.SNIPPET_VERSION = "4.15.3";
-    analytics.load("Fgzue5bXqfY5mDhStQ77ff5t1dc4CAKa");
+    analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"]; analytics.factory = function (e) { return function () { var t = Array.prototype.slice.call(arguments); t.unshift(e); analytics.push(t); return analytics } }; for (var e = 0; e < analytics.methods.length; e++) { var key = analytics.methods[e]; analytics[key] = analytics.factory(key) } analytics.load = function (key, e) { var t = document.createElement("script"); t.type = "text/javascript"; t.async = !0; t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js"; var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(t, n); analytics._loadOptions = e }; analytics._writeKey = "IsolBQ8CZoCWrzAY6KQVk3RtNOj6f4w8";; analytics.SNIPPET_VERSION = "4.15.3";
+    analytics.load("IsolBQ8CZoCWrzAY6KQVk3RtNOj6f4w8");
     analytics.page();
   }
 }();
@@ -404,12 +404,12 @@ function onSignOut() {
 function osSetExternalUserId(userId) {
   OneSignal.setExternalUserId(userId).then(function () {
     console.log("externalUserId set after subscription change: ", userId);
-    console.log("Settings External User ID to Mixpanel");
     //mixpanel identify
     mixpanel.identify(userId)
     mixpanel.people.set("$onesignal_user_id", userId);
     //segment.com identify
     analytics.identify(userId);
+    console.log("Identified External User ID to Analytics");
   })
 }
 
