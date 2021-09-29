@@ -48,6 +48,9 @@
       OneSignal.on('notificationDisplay', function (event) {
         console.warn('OneSignal notification displayed:', event);
       });
+      OneSignal.on('notificationDismiss', function (event) {
+        console.warn('OneSignal notification dismissed:', event);
+      });
     });
     //------------------End Push Notification Events
 
