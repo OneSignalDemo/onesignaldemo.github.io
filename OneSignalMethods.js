@@ -38,15 +38,18 @@
       });
     });
 
-    //------------------TEST CODE
+    //------------------Push Notification Events
     window.OneSignal.push(async () => {
       window.OneSignal.addListenerForNotificationOpened(notification => {
         console.log("notification: ", notification);
         let timestamp = Math.floor(Date.now() / 1000);
         OneSignal.sendTag("last_notification_click", timestamp);
       });
+      OneSignal.on('notificationDisplay', function (event) {
+        console.warn('OneSignal notification displayed:', event);
+      });
     });
-    //------------------TEST CODE
+    //------------------End Push Notification Events
 
 
   };
