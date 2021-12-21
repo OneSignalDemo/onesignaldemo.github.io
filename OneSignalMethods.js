@@ -278,13 +278,9 @@ window.addEventListener("load", () => {
       // this example checks how many items are in the cart element
       // replace ".cart-content" with the class name of your div holding all cart items
       const cartContent = document.querySelector(".cart-content");
-
-      mixpanel.track(
-        "Cart Items",
-        { "cart items count": cartContent.children.length }
-      );
       // if an item remains, update tags to the topmost item
       if (cartContent.children.length > 0) {
+        mixpanel.people.set("$items_in_cart", "true");
         // replace ".cart-product-title" with the class name of the element containing your product name
         let productName = document.querySelector(".cart-product-title")
           .innerHTML;
@@ -304,6 +300,7 @@ window.addEventListener("load", () => {
           });
         });
       } else {
+        mixpanel.people.set("$items_in_cart", "false");
         OneSignal.sendTags({
           purchase_made: "true",
           cart_update: "",
