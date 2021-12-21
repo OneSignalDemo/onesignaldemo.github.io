@@ -278,6 +278,11 @@ window.addEventListener("load", () => {
       // this example checks how many items are in the cart element
       // replace ".cart-content" with the class name of your div holding all cart items
       const cartContent = document.querySelector(".cart-content");
+
+      mixpanel.track(
+        "Cart Items",
+        { "cart items count": cartContent.children.length }
+      );
       // if an item remains, update tags to the topmost item
       if (cartContent.children.length > 0) {
         // replace ".cart-product-title" with the class name of the element containing your product name
@@ -319,6 +324,10 @@ window.addEventListener("load", () => {
   if (typeof clearCartBtn != "undefined" && clearCartBtn != null) {
     clearCartBtn.addEventListener("click", () => {
       osCart.updateOSTagsOnCartChange();
+      mixpanel.track(
+        "Cart Items",
+        { "cart items count": 0 }
+      );
     });
   }
 
