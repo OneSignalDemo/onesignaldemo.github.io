@@ -234,6 +234,10 @@ window.addEventListener("load", () => {
             console.log(tagsSent);
           });
         });
+        mixpanel.track(
+          "Cart Items",
+          { "cart items count": 1 }
+        );
       });
     }
     //Example if page has multiple "Add to cart" buttons, see: https://onesignaldemo.github.io/
@@ -324,10 +328,6 @@ window.addEventListener("load", () => {
   if (typeof clearCartBtn != "undefined" && clearCartBtn != null) {
     clearCartBtn.addEventListener("click", () => {
       osCart.updateOSTagsOnCartChange();
-      mixpanel.track(
-        "Cart Items",
-        { "cart items count": 0 }
-      );
     });
   }
 
