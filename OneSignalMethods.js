@@ -267,6 +267,7 @@ window.addEventListener("load", () => {
             }).then(function (tagsSent) {
               // Callback called when tags have finished sending
               console.log(tagsSent);
+              mixpanel.people.set("$items_in_cart", "true");
             });
           });
         });
