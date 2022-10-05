@@ -103,6 +103,15 @@ window.addEventListener("load", () => {
         OneSignal.getEmailId(function (emailId) {
           console.log("OneSignal Email User ID:", emailId)
         })
+        OneSignal.getExternalUserId().then(function(externalUserId){
+          if (externalUserId == null){
+            var anonUserId = Math.floor(1000000000 + Math.random() * 9000000000);
+            console.log("externalUserId: ", anonUserId);
+            OneSignal.setExternalUserId(anonUserId);
+          } else {
+            console.log("externalUserId: ", externalUserId);
+          }
+        });
       }
       else
         console.log("Push notifications are not enabled yet.");
