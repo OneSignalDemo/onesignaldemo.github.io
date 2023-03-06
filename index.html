@@ -164,6 +164,7 @@ bindEvent(window, 'message', function (e) {
     console.log(`received message: ${e.data} from ${iframeSource}`);
   if (event.origin !== "https://jfishman.github.io") {
     // ignore messages from anywhere except where we expect
+    console.log("event.origin = ", event.origin);
     return
   }
     if (e.data === false){
