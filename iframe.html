@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+      <body>
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "1db1662c-7609-4a90-b0ad-15b45407d628",
+    });
+  });
+
+            // Make sure OneSignal Init code is on this page
+            function bindEvent(element, eventName, eventHandler) {
+              element.addEventListener(eventName, eventHandler, false);
+            }
+            // Accessed within iframe on subdomain.site
+            // Sends a message to mainsite
+            var sendMessage = function (msg) {
+              console.log(`2 Mainsite is Sending Message to subdomain.site ${msg}`)
+              // postMessage: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+              window.parent.postMessage(msg, 'https://onesignaldemo.github.io');
+            };
+            bindEvent(window, 'load', function (e) {
+              OneSignal.push(function() {
+                OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                  console.log(`1 subdomain.site iframe checking subscription from mainsite, it is ${isEnabled}`)
+                  sendMessage(isEnabled)
+                });
+              });
+            });
+            
+            </script>
+      </body>
+</html>

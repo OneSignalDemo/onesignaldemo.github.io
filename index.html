@@ -6,10 +6,64 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>OneSignal Store Demo</title>
-  <!-- OneSignal Init-->
-  <script src="OneSignalMethods.js"></script>
-  <!-- font awesome-->
+
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "5e605fcd-de88-4b0a-a5eb-5c18b84d52f3",
+    });
+  });
+
+  OneSignalDeferred.push(function() {
+    OneSignal.User.addEventListener('change', function (event) {
+      console.log('change', { event });
+    });
+  });
+
+  OneSignalDeferred.push(function() {
+    OneSignal.Slidedown.addEventListener('slidedownShown', function (event) {
+      console.log('slidedownShown', { event });
+    });
+  });
+
+
+
+
+</script>
+  
+  <!-- Migration Testing
+    Comment OneSignalMethods.js
+    Uncommnet Notix code, subscribe
+    Comment Notix code, uncomment OneSignal code
+    Return to site, you should be transferred to OneSignal 
+  -->
+  
+<!-- OneSignal Init
+  <script src="OneSignalMethods.js"></script>-->
+
+  <!-- NOTIX Code (for migration testing)
+    <script id="script">
+    var s = document.createElement("script")
+    s.src = "https://notix.io/ent/current/enot.min.js"
+    s.onload = function (sdk) {
+      sdk.startInstall(
+        {
+          "appId": "1005e25bd64c3e45b77459a994ade15",
+          "loadSettings": true
+        }
+      )
+    }
+    document.head.append(s)
+      </script>
+    -->
+
+
+<!-- font awesome-->
   <script src="https://kit.fontawesome.com/b198ccf02e.js" crossorigin="anonymous"></script>
+
+  <link rel="manifest" href="manifest.json"/>
 
   <!-- custom css -->
   <link rel="stylesheet" href="styles.css" />
@@ -150,36 +204,6 @@
     }
   </script>
   <script src="app.js"></script>
-  <script>
-    function bindEvent(element, eventName, eventHandler) {
-  element.addEventListener(eventName, eventHandler, false);
-}
-var iframeSource = 'https://jfishman1.github.io/iframe';
-var iframe = document.createElement('iframe');
-iframe.setAttribute('src', iframeSource);
-iframe.style.display = 'none';
-document.body.appendChild(iframe);
-
-bindEvent(window, 'message', function (e) {
-    console.log(`received message: ${e.data} from ${iframeSource}`);
-  if (event.origin !== "https://jfishman1.github.io") {
-    // ignore messages from anywhere except where we expect
-    console.log("event.origin = ", event.origin);
-    return
-  }
-    if (e.data === false){
-        console.log("user not subscribed to mainsite, let's prompt")
-        //Option 1 - Prompt the user for this page
-        OneSignal.showNativePrompt();
-        //Option 2 - Open a window or tab to main site
-        //window.open("https://mainsite.com", "_blank", "width=400,height=400")
-    } else {
-        console.log("user is subscribed to mainsite, lets unsubscribe from subdomain.site");
-    OneSignal.setSubscription(false);
-    }
-});
-
-  </script>
 </body>
 
 </html>
